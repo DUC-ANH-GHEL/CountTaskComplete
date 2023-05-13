@@ -41,6 +41,30 @@ h1 {
     font-size: 20px;
     margin-top: 20px;
 }
+.dayDiff {
+    color: #0066ff; /* Màu xanh da trời */
+  }
+  .dayDiff--red {
+    color: red;
+  }
+  
+  .dayDiff--yellow {
+    color: yellow;
+  }
+  
+  .dayDiff--green {
+    color: green;
+  }
+  
+  .dayDiff--blue {
+    color: blue;
+  }
+  
+  .dayDiff--pink {
+    color: pink;
+  }
+  
+  
 
 /* CSS */
 #dayCounter.past {

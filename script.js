@@ -58,11 +58,28 @@ function calculateDayDiff() {
 function displayDayCounter() {
     var dayDiff = calculateDayDiff();
     var dayCounter = document.getElementById('dayCounter');
-    dayCounter.innerText = 'Số ngày đã trôi qua: ' + dayDiff;
-}
-
-
-
+    dayCounter.innerHTML = 'Số ngày đã thành công: <span class="dayDiff">' + dayDiff + '</span>';
+  
+    // Lấy phần tử chứa chữ số dayDiff
+    var dayDiffElement = dayCounter.querySelector('.dayDiff');
+  
+    // Xóa các lớp CSS màu sắc hiện tại
+    dayDiffElement.classList.remove('dayDiff--red', 'dayDiff--yellow', 'dayDiff--green', 'dayDiff--blue', 'dayDiff--pink');
+  
+    // Áp dụng lớp CSS màu sắc tương ứng dựa trên giá trị của dayDiff
+    if (dayDiff < 10) {
+      dayDiffElement.classList.add('dayDiff--red');
+    } else if (dayDiff >= 10 && dayDiff <= 20) {
+      dayDiffElement.classList.add('dayDiff--yellow');
+    } else if (dayDiff > 20 && dayDiff <= 30) {
+      dayDiffElement.classList.add('dayDiff--green');
+    } else if (dayDiff > 30 && dayDiff <= 40) {
+      dayDiffElement.classList.add('dayDiff--blue');
+    } else {
+      dayDiffElement.classList.add('dayDiff--pink');
+    }
+  }
+  
 
 // Hiển thị một popup với câu trích dẫn động lực ngẫu nhiên
 function displayQuotePopup() {
