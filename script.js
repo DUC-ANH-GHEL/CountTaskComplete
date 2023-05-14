@@ -125,8 +125,8 @@ function scheduleNotification() {
         now.getFullYear(),
         now.getMonth(),
         now.getDate(),
-        20, // Giờ là 21 (9 PM)
-        36, // Phút là 0
+        22, // Giờ là 21 (9 PM)
+        0, // Phút là 0
         0 // Giây là 0
     );
 
