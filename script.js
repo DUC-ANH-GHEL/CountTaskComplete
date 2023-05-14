@@ -59,27 +59,27 @@ function displayDayCounter() {
     var dayDiff = calculateDayDiff();
     var dayCounter = document.getElementById('dayCounter');
     dayCounter.innerHTML = 'Số ngày đã thành công: <span class="dayDiff">' + dayDiff + '</span>';
-  
+
     // Lấy phần tử chứa chữ số dayDiff
     var dayDiffElement = dayCounter.querySelector('.dayDiff');
-  
+
     // Xóa các lớp CSS màu sắc hiện tại
     dayDiffElement.classList.remove('dayDiff--red', 'dayDiff--yellow', 'dayDiff--green', 'dayDiff--blue', 'dayDiff--pink');
-  
+
     // Áp dụng lớp CSS màu sắc tương ứng dựa trên giá trị của dayDiff
     if (dayDiff < 10) {
-      dayDiffElement.classList.add('dayDiff--red');
+        dayDiffElement.classList.add('dayDiff--red');
     } else if (dayDiff >= 10 && dayDiff <= 20) {
-      dayDiffElement.classList.add('dayDiff--yellow');
+        dayDiffElement.classList.add('dayDiff--yellow');
     } else if (dayDiff > 20 && dayDiff <= 30) {
-      dayDiffElement.classList.add('dayDiff--green');
+        dayDiffElement.classList.add('dayDiff--green');
     } else if (dayDiff > 30 && dayDiff <= 40) {
-      dayDiffElement.classList.add('dayDiff--blue');
+        dayDiffElement.classList.add('dayDiff--blue');
     } else {
-      dayDiffElement.classList.add('dayDiff--pink');
+        dayDiffElement.classList.add('dayDiff--pink');
     }
-  }
-  
+}
+
 
 // Hiển thị một popup với câu trích dẫn động lực ngẫu nhiên
 function displayQuotePopup() {
@@ -165,3 +165,63 @@ function showNotification(message) {
         notification.close(); // Đóng thông báo sau khi được nhấp vào
     };
 }
+
+// Thiết lập kết nối WebSocket
+var socket = new WebSocket('ws://127.0.0.1:8080/');
+
+// Xử lý sự kiện khi kết nối được thiết lập
+socket.onopen = function () {
+    console.log('Kết nối đã được thiết lập');
+};
+
+// Xử lý sự kiện khi nhận được tin nhắn từ máy chủ
+socket.onmessage = function (event) {
+    var message = event.data;
+    displayMessage(message);
+};
+
+// Xử lý sự kiện khi kết nối bị đóng
+socket.onclose = function () {
+    console.log('Kết nối đã bị đóng');
+};
+
+// Xử lý sự kiện khi xảy ra lỗi kết nối
+socket.onerror = function (error) {
+    console.log('Lỗi kết nối:', error);
+};
+
+// Hiển thị tin nhắn trong phần chat
+function displayMessage(message) {
+    var chatMessages = document.getElementById('chat-messages');
+    var messageElement = document.createElement('div');
+    messageElement.innerText = message;
+    chatMessages.appendChild(messageElement);
+}
+
+// Gửi tin nhắn
+function sendMessage() {
+    var input = document.getElementById('chat-input');
+    var message = input.value;
+
+    // Gửi tin nhắn đến máy chủ
+    socket.send(message);
+
+    // Hiển thị tin nhắn trong phần chat
+    displayMessage(message);
+
+    // Xóa nội dung trong ô input
+    input.value = '';
+}
+
+// Xử lý sự kiện khi người dùng nhấn Enter trong ô input
+document.getElementById('chat-input').addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+// Xử lý sự kiện khi người dùng nhấn nút Gửi
+document.getElementById('chat-send').addEventListener('click', function () {
+    sendMessage();
+});
+
