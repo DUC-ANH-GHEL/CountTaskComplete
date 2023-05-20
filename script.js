@@ -9,6 +9,31 @@ var quotes = [
     // Thêm các câu trích dẫn khác
 ];
 
+function getQuotes() {
+    // Cấu trúc Header của yêu cầu
+    const headers = {
+      'Authorization': 'Bearer CfVvIWPaxIQhVBBhV5TFhoW6F6sNh2oP4m52Ele4',
+    };
+  
+    // Gửi yêu cầu GET đến API với Header và param language=en
+    fetch('https://quotes.rest/qod?language=en', { headers })
+      .then(response => response.json())
+      .then(data => {
+        // Xử lý kết quả trả về
+        const quotes = data.contents.quotes;
+        const quoteStrings = quotes.map(quote => quote.quote);
+        const result = quoteStrings.join('\n');
+        console.log(result); // In ra kết quả dưới dạng chuỗi
+      })
+      .catch(error => {
+        // Xử lý lỗi (nếu có)
+        console.error('Đã xảy ra lỗi:', error);
+      });
+  }
+  
+  
+  
+
 // Lấy thẻ div calendar từ DOM
 var calendar = document.getElementById('calendar');
 
@@ -83,7 +108,8 @@ function displayDayCounter() {
 
 // Hiển thị một popup với câu trích dẫn động lực ngẫu nhiên
 function displayQuotePopup() {
-    var randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    // var randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    var randomQuote = getQuotes();
     // alert(randomQuote);
     return randomQuote;
 }
