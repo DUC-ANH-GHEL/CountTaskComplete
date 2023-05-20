@@ -3,7 +3,7 @@ var startDate = new Date('2023-05-20');
 
 // Mảng chứa các câu trích dẫn động lực
 var quotes = [
-    "Câu trích dẫn 1",
+    "Kỷ luật - Cố lên",
     "Câu trích dẫn 2",
     "Câu trích dẫn 3",
     // Thêm các câu trích dẫn khác
@@ -108,8 +108,8 @@ function displayDayCounter() {
 
 // Hiển thị một popup với câu trích dẫn động lực ngẫu nhiên
 function displayQuotePopup() {
-    // var randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    var randomQuote = getQuotes();
+    var randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    // var randomQuote = getQuotes();
     // alert(randomQuote);
     return randomQuote;
 }
@@ -150,7 +150,8 @@ var notificationMessages = [
     "Nhỏ mắt", // Thông báo cho giờ 12 PM
     "Nhỏ mắt", // Thông báo cho giờ 3 PM
     "Nhỏ mắt", // Thông báo cho giờ 6 PM
-    getQuotes(), // Thông báo cho 22 giờ
+    "Nhỏ mắt", // Thống báo cho 20 giờ
+    displayQuotePopup(), // Thông báo cho 22 giờ
     // Thêm các thông báo khác cho các giờ khác
 ];
 
@@ -159,7 +160,7 @@ function scheduleNotification() {
     var now = new Date();
 
     // Mảng chứa các giờ trong ngày để đặt thông báo
-    var notificationHours = [9, 11, 15, 17, 22]; // Thay đổi giờ tại đây
+    var notificationHours = [9, 11, 15, 17, 20, 22]; // Thay đổi giờ tại đây
 
     // Lặp qua mảng giờ và đặt lịch thông báo cho mỗi giờ cụ thể
     notificationHours.forEach((hour, index) => {
