@@ -1,5 +1,5 @@
 // Ngày bắt đầu
-var startDate = new Date('2023-05-13');
+var startDate = new Date('2023-05-20');
 
 // Mảng chứa các câu trích dẫn động lực
 var quotes = [
