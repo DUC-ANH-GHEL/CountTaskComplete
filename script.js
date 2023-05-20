@@ -12,27 +12,27 @@ var quotes = [
 function getQuotes() {
     // Cấu trúc Header của yêu cầu
     const headers = {
-      'Authorization': 'Bearer CfVvIWPaxIQhVBBhV5TFhoW6F6sNh2oP4m52Ele4',
+        'Authorization': 'Bearer CfVvIWPaxIQhVBBhV5TFhoW6F6sNh2oP4m52Ele4',
     };
-  
+
     // Gửi yêu cầu GET đến API với Header và param language=en
     fetch('https://quotes.rest/qod?language=en', { headers })
-      .then(response => response.json())
-      .then(data => {
-        // Xử lý kết quả trả về
-        const quotes = data.contents.quotes;
-        const quoteStrings = quotes.map(quote => quote.quote);
-        const result = quoteStrings.join('\n');
-        console.log(result); // In ra kết quả dưới dạng chuỗi
-      })
-      .catch(error => {
-        // Xử lý lỗi (nếu có)
-        console.error('Đã xảy ra lỗi:', error);
-      });
-  }
-  
-  
-  
+        .then(response => response.json())
+        .then(data => {
+            // Xử lý kết quả trả về
+            const quotes = data.contents.quotes;
+            const quoteStrings = quotes.map(quote => quote.quote);
+            const result = quoteStrings.join('\n');
+            console.log(result); // In ra kết quả dưới dạng chuỗi
+        })
+        .catch(error => {
+            // Xử lý lỗi (nếu có)
+            console.error('Đã xảy ra lỗi:', error);
+        });
+}
+
+
+
 
 // Lấy thẻ div calendar từ DOM
 var calendar = document.getElementById('calendar');
@@ -144,39 +144,54 @@ function checkDay() {
     return tomorrow.getDate() === 19;
 }
 
-// Hàm đặt lịch hiển thị thông báo vào 10 PM hàng ngày
+// Mảng chứa các thông báo tương ứng với từng giờ
+var notificationMessages = [
+    "Nhỏ mắt", // Thông báo cho giờ 9 AM
+    "Nhỏ mắt", // Thông báo cho giờ 12 PM
+    "Nhỏ mắt", // Thông báo cho giờ 3 PM
+    "Nhỏ mắt", // Thông báo cho giờ 6 PM
+    getQuotes(), // Thông báo cho 22 giờ
+    // Thêm các thông báo khác cho các giờ khác
+];
+
+// Hàm đặt lịch hiển thị thông báo cho nhiều giờ trong ngày
 function scheduleNotification() {
     var now = new Date();
-    var notificationTime = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        22, // Giờ là 21 (9 PM)
-        0, // Phút là 0
-        0 // Giây là 0
-    );
 
-    if (now > notificationTime) {
-        // Nếu hiện tại đã quá thời gian hiển thị thông báo, đặt lịch cho ngày hôm sau
-        notificationTime.setDate(notificationTime.getDate() + 1);
-    }
+    // Mảng chứa các giờ trong ngày để đặt thông báo
+    var notificationHours = [9, 11, 15, 17, 22]; // Thay đổi giờ tại đây
 
-    var timeUntilNotification = notificationTime.getTime() - now.getTime();
+    // Lặp qua mảng giờ và đặt lịch thông báo cho mỗi giờ cụ thể
+    notificationHours.forEach((hour, index) => {
+        var notificationTime = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            hour, // Giờ được lấy từ mảng notificationHours
+            0, // Phút là 0
+            0 // Giây là 0
+        );
 
-    // Đặt timeout để hiển thị thông báo khi đến thời gian
-    setTimeout(function () {
-        var checkSalaryDay = checkDay();
-        if (checkSalaryDay) {
-            showNotification("Ngày mai nhận lương rồi")
-        } else {
-            var messageQuote = displayQuotePopup();
-            showNotification("Today Complete: " + messageQuote);
-
+        if (now > notificationTime) {
+            // Nếu hiện tại đã quá thời gian hiển thị thông báo, đặt lịch cho ngày hôm sau
+            notificationTime.setDate(notificationTime.getDate() + 1);
         }
-        // Đặt lịch cho ngày tiếp theo
-        scheduleNotification();
-    }, timeUntilNotification);
+
+        var timeUntilNotification = notificationTime.getTime() - now.getTime();
+
+        // Đặt timeout để hiển thị thông báo khi đến thời gian
+        setTimeout(function () {
+            var checkSalaryDay = checkDay();
+            if (checkSalaryDay) {
+                showNotification("Ngày mai nhận lương rồi");
+            } else {
+                var message = notificationMessages[index];
+                showNotification(message);
+            }
+        }, timeUntilNotification);
+    });
 }
+
 
 // Hàm hiển thị thông báo
 function showNotification(message) {
