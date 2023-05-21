@@ -161,7 +161,7 @@ function scheduleNotification() {
     var now = new Date();
 
     // Mảng chứa các giờ trong ngày để đặt thông báo
-    var notificationHours = [9, 11, 15, 17, 20, 20]; // Thay đổi giờ tại đây
+    var notificationHours = [9, 11, 15, 17, 20, 22]; // Thay đổi giờ tại đây
 
     // Lặp qua mảng giờ và đặt lịch thông báo cho mỗi giờ cụ thể
     notificationHours.forEach((hour, index) => {
@@ -170,7 +170,7 @@ function scheduleNotification() {
             now.getMonth(),
             now.getDate(),
             hour, // Giờ được lấy từ mảng notificationHours
-            7, // Phút là 0
+            0, // Phút là 0
             0 // Giây là 0
         );
 
