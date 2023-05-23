@@ -149,10 +149,10 @@ var notificationMessages = [
     "Nhỏ mắt", // Thông báo cho giờ 9 AM
     "Nhỏ mắt", // Thông báo cho giờ 12 PM
     "Nhỏ mắt", // Thông báo cho giờ 3 PM
-    "Nhỏ mắt", // Thông báo cho giờ 6 PM
+    "Nhỏ mắt và 2 tiếng listening english nào, hãy cố gắng lên, kiên trì lên, english sẽ cho m những điều tuyệt vời", // Thông báo cho giờ 6 PM
     "Nhỏ mắt", // Thống báo cho 20 giờ
     // displayQuotePopup(), // Thông báo cho 22 giờ
-    "Đã được"+ calculateDayDiff() +" hãy tiếp tục cố gắng nào."
+    "Đã được "+ calculateDayDiff() +" ngày rồi hãy tiếp tục cố gắng nào."
     // Thêm các thông báo khác cho các giờ khác
 ];
 
