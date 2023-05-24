@@ -166,16 +166,6 @@ function scheduleNotification() {
 
     // Lặp qua mảng giờ và đặt lịch thông báo cho mỗi giờ cụ thể
     notificationHours.forEach((hour, index) => {
-        if(hour == 0){
-             var notificationTime = new Date(
-                now.getFullYear(),
-                now.getMonth(),
-                now.getDate(),
-                hour, // Giờ được lấy từ mảng notificationHours
-                20, // Phút là 0
-                0 // Giây là 0
-            );
-        }else{
             var notificationTime = new Date(
                 now.getFullYear(),
                 now.getMonth(),
@@ -184,7 +174,6 @@ function scheduleNotification() {
                 0, // Phút là 0
                 0 // Giây là 0
             );
-        }
         if (now > notificationTime) {
             // Nếu hiện tại đã quá thời gian hiển thị thông báo, đặt lịch cho ngày hôm sau
             notificationTime.setDate(notificationTime.getDate() + 1);
