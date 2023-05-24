@@ -149,10 +149,11 @@ var notificationMessages = [
     "Nhỏ mắt", // Thông báo cho giờ 9 AM
     "Nhỏ mắt", // Thông báo cho giờ 12 PM
     "Nhỏ mắt", // Thông báo cho giờ 3 PM
-    "Nhỏ mắt và 2 tiếng listening english nào, hãy cố gắng lên, kiên trì lên, english sẽ cho m những điều tuyệt vời", // Thông báo cho giờ 6 PM
-    "Nhỏ mắt", // Thống báo cho 20 giờ
+    "Nhỏ mắt ", // Thông báo cho giờ 6 PM
+    "Nhỏ mắt và 2 tiếng listening english nào, hãy cố gắng lên, kiên trì lên, english sẽ cho m những điều tuyệt vời", // Thống báo cho 20 giờ
     // displayQuotePopup(), // Thông báo cho 22 giờ
-    "Đã được "+ calculateDayDiff() +" ngày rồi hãy tiếp tục cố gắng nào."
+    "Đã được "+ calculateDayDiff() +" ngày rồi hãy tiếp tục cố gắng nào.",
+    "Đi ngủ thôi nào, hôm nay bạn đã rất cố gắng rồi, chúc ngủ ngon 🥱"
     // Thêm các thông báo khác cho các giờ khác
 ];
 
@@ -161,19 +162,29 @@ function scheduleNotification() {
     var now = new Date();
 
     // Mảng chứa các giờ trong ngày để đặt thông báo
-    var notificationHours = [9, 11, 15, 17, 20, 22]; // Thay đổi giờ tại đây
+    var notificationHours = [9, 11, 15, 17, 20, 22, 0]; // Thay đổi giờ tại đây
 
     // Lặp qua mảng giờ và đặt lịch thông báo cho mỗi giờ cụ thể
     notificationHours.forEach((hour, index) => {
-        var notificationTime = new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            now.getDate(),
-            hour, // Giờ được lấy từ mảng notificationHours
-            0, // Phút là 0
-            0 // Giây là 0
-        );
-
+        if(hour == 0){
+             var notificationTime = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate(),
+                hour, // Giờ được lấy từ mảng notificationHours
+                20, // Phút là 0
+                0 // Giây là 0
+            );
+        }else{
+            var notificationTime = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate(),
+                hour, // Giờ được lấy từ mảng notificationHours
+                0, // Phút là 0
+                0 // Giây là 0
+            );
+        }
         if (now > notificationTime) {
             // Nếu hiện tại đã quá thời gian hiển thị thông báo, đặt lịch cho ngày hôm sau
             notificationTime.setDate(notificationTime.getDate() + 1);
